@@ -1,0 +1,38 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  color:#1a1a00;
+  background-color: rgb(207, 213, 182);
+  font-family: Lato, sans-serif;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.aplicacion-kanbanboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px;
+  min-width: 800px;
+  width: 90vw;
+  padding: 20px;
+  background-color: rgb(216, 200, 133);
+  border: 2px solid rgb(172, 152, 103);
+  border-radius: 20px;
+}
+
+.aplicacion-kanbanboard h1 {
+  font-size: 20px;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,9 @@
+.story {
+  width: 100%;
+  padding: 10px;
+  min-height: 50px;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid rgb(96, 96, 96);
+}
