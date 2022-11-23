@@ -1,6 +1,7 @@
 
 test on commit
 test on commit 2
+test on commit and push 1
 
 # Getting Started with Create React App
 
