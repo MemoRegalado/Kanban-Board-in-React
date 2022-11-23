@@ -2,9 +2,6 @@
 test on commit
 test on commit 2
 test on commit and push 1
-
-
-
 test on commit and sync 1
 editando desde web
 
