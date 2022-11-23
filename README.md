@@ -6,6 +6,8 @@ test on commit and push 1
 
 
 test on commit and sync 1
+editando desde web
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
