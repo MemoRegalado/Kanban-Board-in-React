@@ -7,31 +7,38 @@ import { v4 as uuidv4 } from 'uuid';
 function KanbanBoard() {
 
   const [storiesStories, setStoriesStories] = useState([
-    {id: uuidv4(),
-    texto: 'ira'},
-    {id: uuidv4(),
-    texto: 'ira 2'},
-    {id: uuidv4(),
-    texto: 'ira 3'}
+  {id: uuidv4(),
+    text: 'Add new story',
+    rootstory: 1
+    }
+    // ,
+    // {id: uuidv4(),
+    // text: 'Story 1',
+    // rootstory: ''
+    // }
   ]);
   const [storiesDoing, setStoriesDoing] = useState([]);
   const [storiesTesting, setStoriesTesting] = useState([]);
   const [storiesDone, setStoriesDone] = useState([]);
-
+  const [valor, setValor] = useState(1);
   
-  // const agregarStory = () =>{
-  //   //console.log('ppppp');
-  //    const storyNueva = {
-  //     id: uuidv4(),
-  //     texto: 'probando',
-  //   };
-    
-  //   if (storyNueva.texto.trim()){
-  //     storyNueva.texto = storyNueva.texto.trim();
-  //     const storiesActualizadas = [storyNueva, ...storiesStories];
-  //     setStoriesStories(storiesActualizadas);
-  //   }
-  // };
+  const addNewStory = () =>{
+    // event.preventDefault();
+    console.log('ppppp');
+    const storyNueva = {
+      id: uuidv4(),
+      text: 'Story ' + valor,
+      rootstory: ''
+    };
+   
+    if (storyNueva.text.trim()){
+      storyNueva.text = storyNueva.text.trim();
+      // storiesStories.push(storyNueva);
+      const storiesActualizadas = [...storiesStories, storyNueva];
+      setStoriesStories(storiesActualizadas);
+      setValor(valor + 1);
+    }
+  };
 
   const moverStory = (id, noColumna) => {
     //recibo la columna actual
@@ -46,9 +53,10 @@ function KanbanBoard() {
         storyMoving = storiesStories.find(story => story.id == id);
         storyNueva = {
           id: uuidv4(),
-          texto: storyMoving.texto,
+          text: storyMoving.text,
+          rootstory: ''
         };
-        storiesActualizadas = [storyNueva, ...storiesDoing];
+        storiesActualizadas = [...storiesDoing, storyNueva];
         setStoriesDoing(storiesActualizadas);
         storiesActualizadas = storiesStories.filter(story => story.id !== id);
         setStoriesStories(storiesActualizadas);
@@ -57,9 +65,10 @@ function KanbanBoard() {
         storyMoving = storiesDoing.find(story => story.id == id);
         storyNueva = {
           id: uuidv4(),
-          texto: storyMoving.texto,
+          text: storyMoving.text,
+          rootstory: ''
         };
-        storiesActualizadas = [storyNueva, ...storiesTesting];
+        storiesActualizadas = [...storiesTesting, storyNueva];
         setStoriesTesting(storiesActualizadas);
         storiesActualizadas = storiesDoing.filter(story => story.id !== id);
         setStoriesDoing(storiesActualizadas);
@@ -68,9 +77,10 @@ function KanbanBoard() {
         storyMoving = storiesTesting.find(story => story.id == id);
         storyNueva = {
           id: uuidv4(),
-          texto: storyMoving.texto,
+          text: storyMoving.text,
+          rootstory: ''
         };
-        storiesActualizadas = [storyNueva, ...storiesDone];
+        storiesActualizadas = [...storiesDone, storyNueva];
         setStoriesDone(storiesActualizadas);
         storiesActualizadas = storiesTesting.filter(story => story.id !== id);
         setStoriesTesting(storiesActualizadas);
@@ -78,14 +88,30 @@ function KanbanBoard() {
     }
   };
 
-  //agregarStory();
+  // const addRootStory = () =>{
+  //   const storyNueva = {
+  //     id: uuidv4(),
+  //     text: 'Add new story',
+  //     rootstory: {addNewStory}
+  //   };
+   
+  //   if (storyNueva.text.trim()){
+  //     storyNueva.text = storyNueva.text.trim();
+  //     storiesStories.push(storyNueva);
+  //    const storiesActualizadas = [...storiesStories, storyNueva];
+  //     setStoriesStories(storiesStories);
+      
+  //   }
+  // }
+
+  // addRootStory();
 
   return (
     <div className='kanban-container'>
-      <ColumnBoard nombrecolumna={'Stories'} stories={storiesStories} botonagregar='' avanzarstory={moverStory} columna='1' />
-      <ColumnBoard nombrecolumna={'Doing'} stories={storiesDoing} botonagregar='' avanzarstory={moverStory} columna='2'/>
-      <ColumnBoard nombrecolumna={'Testing'} stories={storiesTesting} botonagregar='' avanzarstory={moverStory} columna='3'/>
-      <ColumnBoard nombrecolumna={'Done'} stories={storiesDone} botonagregar='' avanzarstory={''} columna='4'/>
+      <ColumnBoard nombrecolumna={'Stories'} stories={storiesStories} botonagregar={addNewStory} avanzarstory={moverStory} columnnumber='1' />
+      <ColumnBoard nombrecolumna={'Doing'} stories={storiesDoing} botonagregar='' avanzarstory={moverStory} columnnumber='2' />
+      <ColumnBoard nombrecolumna={'Testing'} stories={storiesTesting} botonagregar='' avanzarstory={moverStory} columnnumber='3' />
+      <ColumnBoard nombrecolumna={'Done'} stories={storiesDone} botonagregar='' avanzarstory={''} columnnumber='4' />
     </div>
 
   );

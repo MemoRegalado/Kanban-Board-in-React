@@ -4,7 +4,7 @@ import Story from './Story.js'
 
 
 
-function ColumnBoard ({ nombrecolumna, botonagregar, stories, avanzarstory, columna }){
+function ColumnBoard ({ nombrecolumna, botonagregar, stories, avanzarstory, columnnumber }){
   return (
     <div className='container-column-board'>
       <h4>{nombrecolumna}</h4>
@@ -13,10 +13,12 @@ function ColumnBoard ({ nombrecolumna, botonagregar, stories, avanzarstory, colu
           stories.map((story) =>
             <Story 
               key={story.id}
-              id={story.id}
-              texto={story.texto}
+              id={story.id} 
+              text={story.text}
               avanzarstory={avanzarstory}
-              columna={columna}
+              columnnumber={columnnumber}
+              rootstory={story.rootstory}
+              addnewstory={botonagregar}
             />
           )
         }
