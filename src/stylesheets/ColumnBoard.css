@@ -1,15 +1,23 @@
 .container-column-board{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 25%;
-  gap: 5px;
+  /* gap: 5px; */
+  padding: 10px;
+  height: 100%
 }
 
+.container-column-board h4 {
+  height: 1em;
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
 
 .column-board {
   min-height: 500px;
+  height: Calc(100% - 1.3em - 5px);
   width: 100%;
   padding: 5px;
   border-radius: 10px;
@@ -20,4 +28,13 @@
   align-items: center;
   flex-direction: column;
   gap: 5px;
+}
+
+.columnSummary{
+  width: 100%;
+  border-bottom: 1px Solid rgb(162,162,157);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 15px;
 }

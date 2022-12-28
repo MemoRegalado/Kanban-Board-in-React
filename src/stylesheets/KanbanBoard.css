@@ -1,12 +1,13 @@
 .kanban-container {
     width: 100%;
-    margin: 10px;
+    /* margin: 10px 0px; */
     /* padding: 20px; */
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: nowrap;
-    gap: 20px;
+    /* gap: 20px; */
     /* background-color: blue; */
+    height: Calc(100% - 2.5em - 10px)
 
 }

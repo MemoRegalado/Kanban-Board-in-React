@@ -19,10 +19,9 @@ function KanbanBoard() {
   const [storiesTesting, setStoriesTesting] = useState([]);
   const [storiesDone, setStoriesDone] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
-
-  const addNewStory = ( newName = input ) => {
+  const addNewStory = (newName = input) => {
     // event.preventDefault();
     const storyNueva = {
       id: uuidv4(),
@@ -42,7 +41,7 @@ function KanbanBoard() {
   const moverStory = (id, noColumna) => {
     //recibo la columna actual
     // y el id del objeto pa moverlo
-    console.log("moviendo columna " + noColumna);
+    //console.log("moviendo columna " + noColumna);
     let storyMoving = "";
     let storyNueva = "";
     let storiesActualizadas = "";
@@ -87,23 +86,25 @@ function KanbanBoard() {
     }
   };
 
-  // const addRootStory = () =>{
-  //   const storyNueva = {
-  //     id: uuidv4(),
-  //     text: 'Add new story',
-  //     rootstory: {addNewStory}
-  //   };
-
-  //   if (storyNueva.text.trim()){
-  //     storyNueva.text = storyNueva.text.trim();
-  //     storiesStories.push(storyNueva);
-  //    const storiesActualizadas = [...storiesStories, storyNueva];
-  //     setStoriesStories(storiesStories);
-
-  //   }
-  // }
-
-  // addRootStory();
+  const deleteStory = (id, noColumna) => {
+    let storiesActualizadas = [];
+    switch (noColumna) {
+      case "1":
+        console.log("borrando story " + id);
+        storiesActualizadas = storiesStories.filter((story) => story.id !== id);
+        setStoriesStories(storiesActualizadas);
+        break;
+      case "2":
+        storiesActualizadas = storiesDoing.filter((story) => story.id !== id);
+        setStoriesDoing(storiesActualizadas);
+      case "3":
+        storiesActualizadas = storiesTesting.filter((story) => story.id !== id);
+        setStoriesTesting(storiesActualizadas);
+      case "4":
+        storiesActualizadas = storiesDone.filter((story) => story.id !== id);
+        setStoriesDone(storiesActualizadas);
+    }
+  };
 
   return (
     <>
@@ -111,10 +112,9 @@ function KanbanBoard() {
         <ColumnBoard
           nombrecolumna={"Stories"}
           stories={storiesStories}
-          botonagregar={() => (
-            setInput(''),
-            setModalVisible(true))}
+          botonagregar={() => (setInput(""), setModalVisible(true))}
           avanzarstory={moverStory}
+          deleteStory={deleteStory}
           columnnumber="1"
         />
         <ColumnBoard
@@ -122,6 +122,7 @@ function KanbanBoard() {
           stories={storiesDoing}
           botonagregar=""
           avanzarstory={moverStory}
+          deleteStory={deleteStory}
           columnnumber="2"
         />
         <ColumnBoard
@@ -129,6 +130,7 @@ function KanbanBoard() {
           stories={storiesTesting}
           botonagregar=""
           avanzarstory={moverStory}
+          deleteStory={deleteStory}
           columnnumber="3"
         />
         <ColumnBoard
@@ -136,20 +138,25 @@ function KanbanBoard() {
           stories={storiesDone}
           botonagregar=""
           avanzarstory={""}
+          deleteStory={deleteStory}
           columnnumber="4"
         />
       </div>
       {modalVisible && (
-      <Modal
-        titulo={"New Story"}
-        tituloBtn1={"Create"}
-        tituloBtn2={"Exit"}
-        clickBtn1={() => addNewStory()}
-        clickBtn2={() => setModalVisible(false)}
-        clickBtnClose={() => setModalVisible(false)}
-      >
-        Name: <Input maxlenght={30} onChange={e => setInput(e.target.value)}></Input>
-      </Modal>
+        <Modal
+          titulo={"New Story"}
+          tituloBtn1={"Create"}
+          tituloBtn2={"Exit"}
+          clickBtn1={() => addNewStory()}
+          clickBtn2={() => setModalVisible(false)}
+          clickBtnClose={() => setModalVisible(false)}
+        >
+          Name:{" "}
+          <Input
+            maxLenght={40}
+            onChange={(e) => setInput(e.target.value)}
+          ></Input>
+        </Modal>
       )}
     </>
   );
