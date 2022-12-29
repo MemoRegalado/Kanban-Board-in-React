@@ -29,6 +29,8 @@ const styles = {
   header: {
     padding: "0px 0px 10px 0px",
     borderBottom: "1px solid rgb(96, 96, 96)",
+    display: "flex",
+    justifyContent: "center",
   },
   children: {
     padding: "10px",
@@ -80,7 +82,7 @@ function Modal({
     <div id="divOverlay" style={styles.overlay}>
       <div id="divModal" style={styles.modal}>
         <div id="divHeader" style={styles.header}>
-          <h1>{titulo}</h1>
+          <h2>{titulo}</h2>
           <button className="btnClose" onClick={clickBtnClose}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

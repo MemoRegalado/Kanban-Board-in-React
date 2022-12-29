@@ -4,7 +4,6 @@ import ColumnBoard from "./ColumnBoard.js";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal.js";
 import Input from "./Input.js";
-import Button from "./Button.js";
 
 function KanbanBoard() {
   const [storiesStories, setStoriesStories] = useState([
@@ -18,8 +17,11 @@ function KanbanBoard() {
   const [storiesDoing, setStoriesDoing] = useState([]);
   const [storiesTesting, setStoriesTesting] = useState([]);
   const [storiesDone, setStoriesDone] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalCreateVisible, setModalCreateVisible] = useState(false);
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [input, setInput] = useState("");
+  const [storyId, setStoryId] = useState("");
+  const [noColumn, setNoColumn] = useState(0);
 
   const addNewStory = (newName = input) => {
     // event.preventDefault();
@@ -34,7 +36,7 @@ function KanbanBoard() {
       // storiesStories.push(storyNueva);
       const storiesActualizadas = [...storiesStories, storyNueva];
       setStoriesStories(storiesActualizadas);
-      setModalVisible(false);
+      setModalCreateVisible(false);
     }
   };
 
@@ -86,24 +88,39 @@ function KanbanBoard() {
     }
   };
 
-  const deleteStory = (id, noColumna) => {
+  const showModalDelete = (id, noColumna) => {
+    setStoryId(id);
+    setNoColumn(noColumna);
+    setModalDeleteVisible(true);
+  };
+
+  const deleteStory = () => {
     let storiesActualizadas = [];
-    switch (noColumna) {
+    switch (noColumn) {
       case "1":
-        console.log("borrando story " + id);
-        storiesActualizadas = storiesStories.filter((story) => story.id !== id);
+        console.log("borrando story " + storyId);
+        storiesActualizadas = storiesStories.filter(
+          (story) => story.id !== storyId
+        );
         setStoriesStories(storiesActualizadas);
         break;
       case "2":
-        storiesActualizadas = storiesDoing.filter((story) => story.id !== id);
+        storiesActualizadas = storiesDoing.filter(
+          (story) => story.id !== storyId
+        );
         setStoriesDoing(storiesActualizadas);
       case "3":
-        storiesActualizadas = storiesTesting.filter((story) => story.id !== id);
+        storiesActualizadas = storiesTesting.filter(
+          (story) => story.id !== storyId
+        );
         setStoriesTesting(storiesActualizadas);
       case "4":
-        storiesActualizadas = storiesDone.filter((story) => story.id !== id);
+        storiesActualizadas = storiesDone.filter(
+          (story) => story.id !== storyId
+        );
         setStoriesDone(storiesActualizadas);
     }
+    setModalDeleteVisible(false);
   };
 
   return (
@@ -112,9 +129,9 @@ function KanbanBoard() {
         <ColumnBoard
           nombrecolumna={"Stories"}
           stories={storiesStories}
-          botonagregar={() => (setInput(""), setModalVisible(true))}
+          botonagregar={() => (setInput(""), setModalCreateVisible(true))}
           avanzarstory={moverStory}
-          deleteStory={deleteStory}
+          deleteStory={showModalDelete}
           columnnumber="1"
         />
         <ColumnBoard
@@ -122,7 +139,7 @@ function KanbanBoard() {
           stories={storiesDoing}
           botonagregar=""
           avanzarstory={moverStory}
-          deleteStory={deleteStory}
+          deleteStory={showModalDelete}
           columnnumber="2"
         />
         <ColumnBoard
@@ -130,7 +147,7 @@ function KanbanBoard() {
           stories={storiesTesting}
           botonagregar=""
           avanzarstory={moverStory}
-          deleteStory={deleteStory}
+          deleteStory={showModalDelete}
           columnnumber="3"
         />
         <ColumnBoard
@@ -138,24 +155,36 @@ function KanbanBoard() {
           stories={storiesDone}
           botonagregar=""
           avanzarstory={""}
-          deleteStory={deleteStory}
+          deleteStory={showModalDelete}
           columnnumber="4"
         />
       </div>
-      {modalVisible && (
+      {modalCreateVisible && (
         <Modal
           titulo={"New Story"}
           tituloBtn1={"Create"}
           tituloBtn2={"Exit"}
           clickBtn1={() => addNewStory()}
-          clickBtn2={() => setModalVisible(false)}
-          clickBtnClose={() => setModalVisible(false)}
+          clickBtn2={() => setModalCreateVisible(false)}
+          clickBtnClose={() => setModalCreateVisible(false)}
         >
           Name:{" "}
           <Input
             maxLenght={40}
             onChange={(e) => setInput(e.target.value)}
           ></Input>
+        </Modal>
+      )}
+      {modalDeleteVisible && (
+        <Modal
+          titulo={"Delete Story"}
+          tituloBtn1={"Delete"}
+          tituloBtn2={"Exit"}
+          clickBtn1={() => deleteStory()}
+          clickBtn2={() => setModalDeleteVisible(false)}
+          clickBtnClose={() => setModalDeleteVisible(false)}
+        >
+          <h3>This actión can't be undone. Continue? </h3>
         </Modal>
       )}
     </>

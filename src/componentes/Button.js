@@ -7,7 +7,7 @@ const styles = {
     cursor: "pointer",
     backgroundColor: "",
     border: "1px solid rgb(96, 96, 96)",
-    fontSize: "1.5em",
+    fontSize: "1.1em",
     height: "35px",
   },
 };

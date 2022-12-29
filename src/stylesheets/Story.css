@@ -16,9 +16,10 @@
   cursor: pointer;
   margin: 10px;
   border: none;
+  background-color: transparent;
 }
 
-.txtStory{
+.txtStory {
   padding: 10px;
   height: 100%;
   width: -webkit-fill-available;

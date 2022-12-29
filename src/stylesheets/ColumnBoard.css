@@ -9,7 +9,7 @@
   height: 100%
 }
 
-.container-column-board h4 {
+.container-column-board>h4 {
   height: 1em;
   font-size: 1.3em;
   margin-bottom: 5px;
