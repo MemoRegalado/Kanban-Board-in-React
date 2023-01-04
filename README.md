@@ -2,6 +2,7 @@
 This is my initial project for a Kanban Board
 This project is made as practice for my React skills.  
 I want to ground some of the basic concepts and this first project can help with that.
+You can watch the deployment here :  https://memoregalado.github.io/kanbanboard/
 
 # Updates soon - Working on 
 I've read a lot about styled components, so I'll change all the project to using them.  
