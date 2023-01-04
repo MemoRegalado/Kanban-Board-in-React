@@ -4,6 +4,7 @@ import ColumnBoard from "./ColumnBoard.js";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal.js";
 import Input from "./Input.js";
+import Alert from "./Alert";
 
 function KanbanBoard() {
   const [storiesStories, setStoriesStories] = useState([
@@ -19,11 +20,40 @@ function KanbanBoard() {
   const [storiesDone, setStoriesDone] = useState([]);
   const [modalCreateVisible, setModalCreateVisible] = useState(false);
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
+  const [alertUndoneVisible, setAlertUndoneVisible] = useState(false);
   const [input, setInput] = useState("");
   const [storyId, setStoryId] = useState("");
   const [noColumn, setNoColumn] = useState(0);
+  const [storyDeleted, setStoryDeleted] = useState({});
 
-  const addNewStory = (newName = input) => {
+  const configColumns = [
+    {
+      noColumn: 1,
+      arrStories: storiesStories,
+      fnSet: setStoriesStories,
+      nameColumn: "Stories",
+    },
+    {
+      noColumn: 2,
+      arrStories: storiesDoing,
+      fnSet: setStoriesDoing,
+      nameColumn: "Doing",
+    },
+    {
+      noColumn: 3,
+      arrStories: storiesTesting,
+      fnSet: setStoriesTesting,
+      nameColumn: "Testing",
+    },
+    {
+      noColumn: 4,
+      arrStories: storiesDone,
+      fnSet: setStoriesDone,
+      nameColumn: "Done",
+    },
+  ];
+
+  const addNewStory = (newName = input, noColumn = 1) => {
     // event.preventDefault();
     const storyNueva = {
       id: uuidv4(),
@@ -33,10 +63,10 @@ function KanbanBoard() {
 
     if (storyNueva.text.trim()) {
       storyNueva.text = storyNueva.text.trim();
-      // storiesStories.push(storyNueva);
-      const storiesActualizadas = [...storiesStories, storyNueva];
-      setStoriesStories(storiesActualizadas);
+      const storiesActualizadas = [...configColumns[noColumn - 1].arrStories, storyNueva];
+      configColumns[noColumn - 1].fnSet(storiesActualizadas);
       setModalCreateVisible(false);
+      console.log(configColumns[0]);
     }
   };
 
@@ -47,9 +77,9 @@ function KanbanBoard() {
     let storyMoving = "";
     let storyNueva = "";
     let storiesActualizadas = "";
-
+    console.log(noColumna);
     switch (noColumna) {
-      case "1":
+      case 1:
         storyMoving = storiesStories.find((story) => story.id == id);
         storyNueva = {
           id: uuidv4(),
@@ -61,7 +91,7 @@ function KanbanBoard() {
         storiesActualizadas = storiesStories.filter((story) => story.id !== id);
         setStoriesStories(storiesActualizadas);
         break;
-      case "2":
+      case 2:
         storyMoving = storiesDoing.find((story) => story.id == id);
         storyNueva = {
           id: uuidv4(),
@@ -73,7 +103,7 @@ function KanbanBoard() {
         storiesActualizadas = storiesDoing.filter((story) => story.id !== id);
         setStoriesDoing(storiesActualizadas);
         break;
-      case "3":
+      case 3:
         storyMoving = storiesTesting.find((story) => story.id == id);
         storyNueva = {
           id: uuidv4(),
@@ -96,68 +126,65 @@ function KanbanBoard() {
 
   const deleteStory = () => {
     let storiesActualizadas = [];
+    let storyDel = {};
     switch (noColumn) {
-      case "1":
-        console.log("borrando story " + storyId);
+      case 1:
+        // console.log("borrando story " + storyId);
         storiesActualizadas = storiesStories.filter(
           (story) => story.id !== storyId
         );
+        storyDel = storiesStories.find((story) => story.id === storyId);
         setStoriesStories(storiesActualizadas);
         break;
-      case "2":
+      case 2:
         storiesActualizadas = storiesDoing.filter(
           (story) => story.id !== storyId
         );
+        storyDel = storiesDoing.find((story) => story.id === storyId);
         setStoriesDoing(storiesActualizadas);
-      case "3":
+        break;
+      case 3:
         storiesActualizadas = storiesTesting.filter(
           (story) => story.id !== storyId
         );
+        storyDel = storiesTesting.find((story) => story.id === storyId);
         setStoriesTesting(storiesActualizadas);
-      case "4":
+        break;
+      case 4:
         storiesActualizadas = storiesDone.filter(
           (story) => story.id !== storyId
         );
+        storyDel = storiesDone.find((story) => story.id === storyId);
         setStoriesDone(storiesActualizadas);
+        break;
     }
     setModalDeleteVisible(false);
+    setStoryId("");
+    setStoryDeleted({ ...storyDel, noColumn: noColumn });
+    setAlertUndoneVisible(true);
+    setTimeout(() => {
+      setAlertUndoneVisible(false);
+    }, 3000);
+  };
+
+  const undeleteStory = () => {
+    setAlertUndoneVisible(false);
+    addNewStory(storyDeleted.text, storyDeleted.noColumn);
   };
 
   return (
     <>
       <div className="kanban-container">
-        <ColumnBoard
-          nombrecolumna={"Stories"}
-          stories={storiesStories}
-          botonagregar={() => (setInput(""), setModalCreateVisible(true))}
-          avanzarstory={moverStory}
-          deleteStory={showModalDelete}
-          columnnumber="1"
-        />
-        <ColumnBoard
-          nombrecolumna={"Doing"}
-          stories={storiesDoing}
-          botonagregar=""
-          avanzarstory={moverStory}
-          deleteStory={showModalDelete}
-          columnnumber="2"
-        />
-        <ColumnBoard
-          nombrecolumna={"Testing"}
-          stories={storiesTesting}
-          botonagregar=""
-          avanzarstory={moverStory}
-          deleteStory={showModalDelete}
-          columnnumber="3"
-        />
-        <ColumnBoard
-          nombrecolumna={"Done"}
-          stories={storiesDone}
-          botonagregar=""
-          avanzarstory={""}
-          deleteStory={showModalDelete}
-          columnnumber="4"
-        />
+        {configColumns.map((column) => (
+          <ColumnBoard
+            nombrecolumna={column.nameColumn}
+            stories={column.arrStories}
+            botonagregar={() => (setInput(""), setModalCreateVisible(true))}
+            avanzarstory={moverStory}
+            deleteStory={showModalDelete}
+            columnnumber={column.noColumn}
+          />
+        ))}
       </div>
       {modalCreateVisible && (
         <Modal
@@ -186,6 +213,11 @@ function KanbanBoard() {
         >
           <h3>This actión can't be undone. Continue? </h3>
         </Modal>
+      )}
+      {alertUndoneVisible && (
+        <Alert titleBtn="Undone" onClick={undeleteStory}>
+          Story deleted
+        </Alert>
       )}
     </>
   );

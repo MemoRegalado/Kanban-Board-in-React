@@ -1,17 +1,16 @@
 
-
 This is my initial project for a Kanban Board
-
 This project is made as practice for my React skills.  
 I want to ground some of the basic concepts and this first project can help with that.
 
 # Updates soon - Working on 
 I've read a lot about styled components, so I'll change all the project to using them.  
-I'm thinking about if I should put an 'undone' message after the delete, I'm not sure how that should be programmed, but definitely worth looking into.  
 I'll add the 'drag and drop' funcionality, definitely.  
+~~I'm thinking about if I should put an 'undone' message after the delete, I'm not sure how that should be programmed, but definitely worth looking into.~~  
 ~~I'll add a confirm message before deleting.~~  
-~~I will add a title counter for every column so we can know how many stories each column has.~~  
-~~I'll add a new modal window to create the new stories~~
+
+# 2023/01/03
+Added the UNDONE modal after the delete.
 
 # 2022/12/28
 Added a confirm message before deleting.

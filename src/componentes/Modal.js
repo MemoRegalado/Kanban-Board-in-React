@@ -47,22 +47,6 @@ const styles = {
     alignItems: "center",
     gap: "10px",
   },
-  // btnClose: {
-  //   position: "absolute",
-  //   top: "5px",
-  //   right: "10px",
-  //   width: "30px",
-  //   height: "30px",
-  //   border: "none",
-  //   background: "none",
-  //   cursor: "pointer",
-  //   transition: "0.3s ease all",
-  //   borderRadius: "5px",
-  //   color: "rgb(96, 96, 96)",
-  // },
-  // btnCloseHover: {
-  //   background: "#f2f2f2",
-  // },
   svg: {
     width: "100%",
     height: "100%",
@@ -89,7 +73,7 @@ function Modal({
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-x"
+              className="bi bi-x"
               viewBox="0 0 16 16"
               style={styles.svg}
             >
