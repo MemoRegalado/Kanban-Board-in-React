@@ -5,10 +5,15 @@ I want to ground some of the basic concepts and this first project can help with
 You can watch the deployment here :  https://memoregalado.github.io/kanbanboard/
 
 # Updates soon - Working on 
-I've read a lot about styled components, so I'll change all the project to using them.  
+I'll add handle of color themes (day and night).  
+I'll change all the SVG to React Icons.  
 I'll add the 'drag and drop' funcionality, definitely.  
+~~I've read a lot about styled components, so I'll change all the project to using them.~~  
 ~~I'm thinking about if I should put an 'undone' message after the delete, I'm not sure how that should be programmed, but definitely worth looking into.~~  
 ~~I'll add a confirm message before deleting.~~  
+
+# 2023/01/22
+I switch all the project to Styled Components, amazing library!!
 
 # 2023/01/03
 Added the UNDONE modal after the delete.
@@ -28,5 +33,3 @@ The Modal Component is very flexible because we can configure every button actio
 # 2022/11/23
 I added a button to add stories.  
 The stories moves with a click
-
-

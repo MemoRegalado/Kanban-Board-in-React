@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../stylesheets/KanbanBoard.css";
+import styled from "styled-components";
 import ColumnBoard from "./ColumnBoard.js";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal.js";
@@ -63,7 +63,10 @@ function KanbanBoard() {
 
     if (storyNueva.text.trim()) {
       storyNueva.text = storyNueva.text.trim();
-      const storiesActualizadas = [...configColumns[noColumn - 1].arrStories, storyNueva];
+      const storiesActualizadas = [
+        ...configColumns[noColumn - 1].arrStories,
+        storyNueva,
+      ];
       configColumns[noColumn - 1].fnSet(storiesActualizadas);
       setModalCreateVisible(false);
       console.log(configColumns[0]);
@@ -174,7 +177,7 @@ function KanbanBoard() {
 
   return (
     <>
-      <div className="kanban-container">
+      <KanbanContainer>
         {configColumns.map((column) => (
           <ColumnBoard
             nombrecolumna={column.nameColumn}
@@ -185,7 +188,7 @@ function KanbanBoard() {
             columnnumber={column.noColumn}
           />
         ))}
-      </div>
+      </KanbanContainer>
       {modalCreateVisible && (
         <Modal
           titulo={"New Story"}
@@ -224,3 +227,12 @@ function KanbanBoard() {
 }
 
 export default KanbanBoard;
+
+const KanbanContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  height: Calc(100% - 2.5em - 10px);
+`;
