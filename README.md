@@ -2,7 +2,7 @@
 This is my initial project for a Kanban Board
 This project is made as practice for my React skills.  
 I want to ground some of the basic concepts and this first project can help with that.
-You can watch the deployment here :  https://memoregalado.github.io/kanbanboard/
+You can watch the deployment here :  https://memoregalado.github.io/Kanban-Board-in-React/
 
 # Updates soon - Working on 
 I'll add handle of color themes (day and night).  
