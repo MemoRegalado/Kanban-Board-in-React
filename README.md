@@ -24,7 +24,7 @@ Added a confirm message before deleting.
 # 2022/12/27
 Added a button to delete the stories.  
 Added some tool tip text.  
-Added a counter for each Kanban Column.
+Added a counter for each  Kanban Column.
 
 # 2022/12/27
 I added a modal window to create the new stories.  
