@@ -12,8 +12,10 @@ I'll add the 'drag and drop' funcionality, definitely.
 ~~I'm thinking about if I should put an 'undone' message after the delete, I'm not sure how that should be programmed, but definitely worth looking into.~~  
 ~~I'll add a confirm message before deleting.~~  
 
-# 2023/01/26
-The whole project was changed to styled-components, It is a very interesting library, however, I'm not sure if I made the implementation in the most efficient way. I'll keep researching that.
+# 2023/01/26  
+The project now has dark/light mode!!  
+The whole project was changed to styled-components!!  
+It is a very interesting library, however, I'm not sure if I made the implementation in the most efficient way. I'll keep researching that.  
 Also, I changed all the SVG icons by React Icons.
 
 # 2023/01/22
