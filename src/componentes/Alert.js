@@ -4,9 +4,7 @@ function Alert({ children, titleBtn, onClick }) {
   return (
     <DivModalAlert>
       {children}
-      <button onClick={() => onClick()}>
-        {titleBtn}
-      </button>
+      <button onClick={() => onClick()}>{titleBtn}</button>
     </DivModalAlert>
   );
 }
@@ -29,11 +27,11 @@ const DivModalAlert = styled.div`
   font-weight: 100;
   padding: 0px 10px;
   letter-spacing: 0.3em;
-  >button {
+  > button {
     font-weight: 700;
     background: transparent;
     border: 0px;
-    color: #FFF;
+    color: #fff;
     font-size: 1em;
     cursor: pointer;
   }

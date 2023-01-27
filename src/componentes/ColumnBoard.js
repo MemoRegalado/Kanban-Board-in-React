@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Story from "./Story.js";
 
@@ -47,10 +46,10 @@ const DivContainerColumnBoard = styled.div`
   width: 25%;
   padding: 10px;
   height: 100%;
-  >h4 {
-  height: 1em;
-  font-size: 1.3em;
-  margin-bottom: 5px;
+  > h4 {
+    height: 1em;
+    font-size: 1.3em;
+    margin-bottom: 5px;
   }
 `;
 
@@ -60,8 +59,8 @@ const DivColumnBoard = styled.div`
   width: 100%;
   padding: 5px;
   border-radius: 10px;
-  background-color: rgb(239, 240, 220);
-  border: 1px solid rgb(162, 162, 157);
+  background-color: ${({ theme }) => theme.bgc2};
+  border: 1px solid ${({ theme }) => theme.colorborder};
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -71,7 +70,7 @@ const DivColumnBoard = styled.div`
 
 const DivColumnSummary = styled.div`
   width: 100%;
-  border-bottom: 1px Solid rgb(162,162,157);
+  border-bottom: 1px Solid ${({ theme }) => theme.colorborder};
   display: flex;
   justify-content: flex-end;
   align-items: center;

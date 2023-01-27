@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ColumnBoard from "./ColumnBoard.js";
 import { v4 as uuidv4 } from "uuid";
@@ -80,7 +80,7 @@ function KanbanBoard() {
     let storyMoving = "";
     let storyNueva = "";
     let storiesActualizadas = "";
-    console.log(noColumna);
+    // console.log(noColumna);
     switch (noColumna) {
       case 1:
         storyMoving = storiesStories.find((story) => story.id == id);
@@ -180,6 +180,7 @@ function KanbanBoard() {
       <KanbanContainer>
         {configColumns.map((column) => (
           <ColumnBoard
+            key={column.nameColumn}
             nombrecolumna={column.nameColumn}
             stories={column.arrStories}
             botonagregar={() => (setInput(""), setModalCreateVisible(true))}

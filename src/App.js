@@ -1,17 +1,38 @@
-import "./App.css";
+// import "./App.css";
 import KanbanBoard from "./componentes/KanbanBoard";
-import styled from "styled-components";
+import Themes from "./contexts/Themes";
+import styled, { ThemeProvider } from "styled-components";
+import BtnTheme from "./componentes/BtnTheme";
+import { useState } from "react";
 
 function App() {
+  const [theme, setTheme] = useState("light");
+
   return (
-    <DivAplicacionKanbanboard>
-      <h1>Kanban Board</h1>
-      <KanbanBoard />
-    </DivAplicacionKanbanboard>
+    <ThemeProvider theme={Themes[theme]}>
+      <Main>
+        <DivAplicacionKanbanboard>
+          <h1>Kanban Board</h1>
+          <BtnTheme setTheme={setTheme} theme={theme} />
+          <KanbanBoard />
+        </DivAplicacionKanbanboard>
+      </Main>
+    </ThemeProvider>
   );
 }
 
 export default App;
+
+const Main = styled.div`
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bgc0};
+  font-family: Lato, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
 
 const DivAplicacionKanbanboard = styled.div`
   display: flex;
@@ -24,9 +45,11 @@ const DivAplicacionKanbanboard = styled.div`
   width: 95vw;
   height: 95vh;
   padding: 10px 0px;
-  background-color: rgb(216, 200, 133);
-  border: 2px solid rgb(172, 152, 103);
+  background-color: ${({ theme }) => theme.bgc1};
+  /* background-color: rgb(216, 200, 133); */
+  border: 2px solid ${({ theme }) => theme.colorborder};
   border-radius: 20px;
+  position: absolute;
   > h1 {
     font-size: 2.5em;
     text-transform: uppercase;
@@ -34,5 +57,12 @@ const DivAplicacionKanbanboard = styled.div`
     text-align: center;
     height: 1em;
     margin-bottom: 10px;
+  }
+  > button {
+    position: absolute;
+    top: 10px;
+    left: Calc(100% - 40px);
+    outline: none;
+    accent-color: ${({ theme }) => theme.bgTxtColor};
   }
 `;
