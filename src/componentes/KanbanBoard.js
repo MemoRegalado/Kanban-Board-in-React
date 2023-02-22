@@ -5,165 +5,97 @@ import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal.js";
 import Input from "./Input.js";
 import Alert from "./Alert";
+import useLocalStorage from "../hooks/useLocalStorage.js";
 
 function KanbanBoard() {
-  const [storiesStories, setStoriesStories] = useState([
-    { id: uuidv4(), text: "Add new story", rootstory: 1 },
-    // ,
-    // {id: uuidv4(),
-    // text: 'Story 1',
-    // rootstory: ''
-    // }
-  ]);
-  const [storiesDoing, setStoriesDoing] = useState([]);
-  const [storiesTesting, setStoriesTesting] = useState([]);
-  const [storiesDone, setStoriesDone] = useState([]);
   const [modalCreateVisible, setModalCreateVisible] = useState(false);
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [alertUndoneVisible, setAlertUndoneVisible] = useState(false);
   const [input, setInput] = useState("");
   const [storyId, setStoryId] = useState("");
-  const [noColumn, setNoColumn] = useState(0);
   const [storyDeleted, setStoryDeleted] = useState({});
 
   const configColumns = [
     {
       noColumn: 1,
-      arrStories: storiesStories,
-      fnSet: setStoriesStories,
+      //arrStories: storiesStories,
+      //fnSet: setStoriesStories,
       nameColumn: "Stories",
     },
     {
       noColumn: 2,
-      arrStories: storiesDoing,
-      fnSet: setStoriesDoing,
+      //arrStories: storiesDoing,
+      //fnSet: setStoriesDoing,
       nameColumn: "Doing",
     },
     {
       noColumn: 3,
-      arrStories: storiesTesting,
-      fnSet: setStoriesTesting,
+      //arrStories: storiesTesting,
+      //fnSet: setStoriesTesting,
       nameColumn: "Testing",
     },
     {
       noColumn: 4,
-      arrStories: storiesDone,
-      fnSet: setStoriesDone,
+      //arrStories: storiesDone,
+      //fnSet: setStoriesDone,
       nameColumn: "Done",
     },
   ];
 
-  const addNewStory = (newName = input, noColumn = 1) => {
+  const storiesInitial = [
+    { id: uuidv4(), nocolumn: 1, text: "Add new story", rootstory: 1 },
+  ];
+
+  const [columns, setColumns] = useLocalStorage("columns_V1", configColumns);
+
+  const [stories, setStories] = useLocalStorage("stories_V1", storiesInitial);
+  
+  const addNewStory = (newName = input) => {
     // event.preventDefault();
     const storyNueva = {
       id: uuidv4(),
+      nocolumn: 1,
       text: newName,
-      rootstory: "",
+      rootstory: 0,
     };
 
     if (storyNueva.text.trim()) {
       storyNueva.text = storyNueva.text.trim();
-      const storiesActualizadas = [
-        ...configColumns[noColumn - 1].arrStories,
-        storyNueva,
-      ];
-      configColumns[noColumn - 1].fnSet(storiesActualizadas);
+      const storiesActualizadas = [...stories, storyNueva];
+      setStories(storiesActualizadas);
       setModalCreateVisible(false);
-      console.log(configColumns[0]);
     }
   };
 
-  const moverStory = (id, noColumna) => {
-    //recibo la columna actual
-    // y el id del objeto pa moverlo
-    //console.log("moviendo columna " + noColumna);
-    let storyMoving = "";
-    let storyNueva = "";
-    let storiesActualizadas = "";
-    // console.log(noColumna);
-    switch (noColumna) {
-      case 1:
-        storyMoving = storiesStories.find((story) => story.id == id);
-        storyNueva = {
-          id: uuidv4(),
-          text: storyMoving.text,
-          rootstory: "",
+  const avanzarStory = (id) => {
+    //stories
+    const updatedStories = stories.map((story) => {
+      if (story.id === id) {
+        return {
+          ...story, // Copia todas las propiedades del objeto original
+          nocolumn:
+            story.nocolumn + 1 > columns.length
+              ? columns.length
+              : story.nocolumn + 1, // Modifica la propiedad deseada
         };
-        storiesActualizadas = [...storiesDoing, storyNueva];
-        setStoriesDoing(storiesActualizadas);
-        storiesActualizadas = storiesStories.filter((story) => story.id !== id);
-        setStoriesStories(storiesActualizadas);
-        break;
-      case 2:
-        storyMoving = storiesDoing.find((story) => story.id == id);
-        storyNueva = {
-          id: uuidv4(),
-          text: storyMoving.text,
-          rootstory: "",
-        };
-        storiesActualizadas = [...storiesTesting, storyNueva];
-        setStoriesTesting(storiesActualizadas);
-        storiesActualizadas = storiesDoing.filter((story) => story.id !== id);
-        setStoriesDoing(storiesActualizadas);
-        break;
-      case 3:
-        storyMoving = storiesTesting.find((story) => story.id == id);
-        storyNueva = {
-          id: uuidv4(),
-          text: storyMoving.text,
-          rootstory: "",
-        };
-        storiesActualizadas = [...storiesDone, storyNueva];
-        setStoriesDone(storiesActualizadas);
-        storiesActualizadas = storiesTesting.filter((story) => story.id !== id);
-        setStoriesTesting(storiesActualizadas);
-        break;
-    }
+      } else {
+        return story; // Devuelve el objeto sin modificar
+      }
+    });
+    setStories(updatedStories);
   };
 
-  const showModalDelete = (id, noColumna) => {
+  const showModalDelete = (id) => {
     setStoryId(id);
-    setNoColumn(noColumna);
     setModalDeleteVisible(true);
   };
 
   const deleteStory = () => {
-    let storiesActualizadas = [];
-    let storyDel = {};
-    switch (noColumn) {
-      case 1:
-        // console.log("borrando story " + storyId);
-        storiesActualizadas = storiesStories.filter(
-          (story) => story.id !== storyId
-        );
-        storyDel = storiesStories.find((story) => story.id === storyId);
-        setStoriesStories(storiesActualizadas);
-        break;
-      case 2:
-        storiesActualizadas = storiesDoing.filter(
-          (story) => story.id !== storyId
-        );
-        storyDel = storiesDoing.find((story) => story.id === storyId);
-        setStoriesDoing(storiesActualizadas);
-        break;
-      case 3:
-        storiesActualizadas = storiesTesting.filter(
-          (story) => story.id !== storyId
-        );
-        storyDel = storiesTesting.find((story) => story.id === storyId);
-        setStoriesTesting(storiesActualizadas);
-        break;
-      case 4:
-        storiesActualizadas = storiesDone.filter(
-          (story) => story.id !== storyId
-        );
-        storyDel = storiesDone.find((story) => story.id === storyId);
-        setStoriesDone(storiesActualizadas);
-        break;
-    }
+    const storyDel = stories.find((story) => story.id === storyId);
+    const updatedStories = stories.filter((story) => story.id !== storyId);
+    setStoryDeleted(storyDel);
+    setStories(updatedStories);
     setModalDeleteVisible(false);
-    setStoryId("");
-    setStoryDeleted({ ...storyDel, noColumn: noColumn });
     setAlertUndoneVisible(true);
     setTimeout(() => {
       setAlertUndoneVisible(false);
@@ -172,24 +104,26 @@ function KanbanBoard() {
 
   const undeleteStory = () => {
     setAlertUndoneVisible(false);
-    addNewStory(storyDeleted.text, storyDeleted.noColumn);
+    const storiesActualizadas = [...stories, storyDeleted];
+    setStories(storiesActualizadas);
   };
 
   return (
     <>
       <KanbanContainer>
-        {configColumns.map((column) => (
+        {columns.map((column) => (
           <ColumnBoard
             key={column.nameColumn}
             nombrecolumna={column.nameColumn}
-            stories={column.arrStories}
+            stories={stories}
             botonagregar={() => (setInput(""), setModalCreateVisible(true))}
-            avanzarstory={moverStory}
+            avanzarstory={avanzarStory}
             deleteStory={showModalDelete}
             columnnumber={column.noColumn}
           />
         ))}
       </KanbanContainer>
+
       {modalCreateVisible && (
         <Modal
           titulo={"New Story"}
@@ -236,4 +170,5 @@ const KanbanContainer = styled.div`
   align-items: flex-start;
   flex-wrap: nowrap;
   height: Calc(100% - 2.5em - 10px);
+  gap: 15px;
 `;

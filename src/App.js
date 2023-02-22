@@ -4,10 +4,23 @@ import Themes from "./contexts/Themes";
 import styled, { ThemeProvider } from "styled-components";
 import BtnTheme from "./componentes/BtnTheme";
 import { useState } from "react";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  // const localStorageTheme = localStorage.getItem('theme');
+  
+  // if (!localStorageTheme){
+  //   localStorage.setItem('theme','light');
+  //   localStorageTheme = 'light'
+  // } 
 
+  // const saveTheme = (theme) => {
+  //   localStorage.setItem('theme',theme)
+  //   setTheme(theme)
+  // }
+
+  const [theme, setTheme] = useLocalStorage('theme_V1','light');
+  
   return (
     <ThemeProvider theme={Themes[theme]}>
       <Main>
@@ -44,7 +57,7 @@ const DivAplicacionKanbanboard = styled.div`
   min-width: 800px;
   width: 95vw;
   height: 95vh;
-  padding: 10px 0px;
+  padding: 15px 15px;
   background-color: ${({ theme }) => theme.bgc1};
   /* background-color: rgb(216, 200, 133); */
   border: 2px solid ${({ theme }) => theme.colorborder};

@@ -19,7 +19,7 @@ function Story({
       }
     } else {
       if (avanzarstory != "") {
-        avanzarstory(id, columnnumber);
+        avanzarstory(id);
       }
     }
   };
@@ -30,8 +30,31 @@ function Story({
     }
   };
 
+  const handleDragStart = (ev) => {
+    // This method runs when the dragging starts
+    // console.log("Started");
+  };
+
+  const handleDrag = (ev) => {
+    // This method runs when the component is being dragged
+    // console.log(ev.clientX + " - " + ev.clientY);
+  };
+
+  const handleDragEnd = (ev) => {
+    // This method runs when the dragging stops
+    // if (ev.clientX >= 250 && ev.clientX <= 430) avanzarstory(id, 1);
+    // if (ev.clientX >= 460 && ev.clientX <= 637) avanzarstory(id, 2);
+    // if (ev.clientX >= 675 && ev.clientX <= 845) avanzarstory(id, 3);
+    // console.log(columnnumber);
+  };
+
   return (
-    <DivStory draggable>
+    <DivStory
+      draggable
+      onDragStart={handleDragStart}
+      onDrag={handleDrag}
+      onDragEnd={handleDragEnd}
+    >
       <DivTxtStory
         onClick={handleClick}
         title={rootstory == "" ? "Click to move" : ""}
@@ -56,7 +79,7 @@ const DivStory = styled.div`
   text-align: center;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colorborder};
-  cursor: pointer;
+  cursor: grab;
   display: flex;
   justify-content: space-between;
   align-items: center;

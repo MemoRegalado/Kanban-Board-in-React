@@ -9,28 +9,40 @@ function ColumnBoard({
   columnnumber,
   deleteStory,
 }) {
+
+  const total = stories.reduce((accumulator, el) => {
+    if (columnnumber == el.nocolumn) {
+      return accumulator + 1;
+    } else {
+      return accumulator;
+    }
+  }, 0);
+
   return (
     <DivContainerColumnBoard>
       <h4>{nombrecolumna}</h4>
       <DivColumnBoard>
         <DivColumnSummary>
-          {columnnumber == 1 ? stories.length - 1 : stories.length}{" "}
-          {(columnnumber == 1 ? stories.length - 1 : stories.length) == 1
+          {columnnumber == 1 ? total - 1 : total}{" "}
+          {(columnnumber == 1 ? total - 1 : total) == 1
             ? "Story"
             : "Stories"}
         </DivColumnSummary>
-        {stories.map((story) => (
-          <Story
-            key={story.id}
-            id={story.id}
-            text={story.text}
-            avanzarstory={avanzarstory}
-            columnnumber={columnnumber}
-            rootstory={story.rootstory}
-            addnewstory={botonagregar}
-            deleteStory={deleteStory}
-          />
-        ))}
+        {stories.map((story) => {
+          if (columnnumber == story.nocolumn)
+            return (
+              <Story
+                key={story.id}
+                id={story.id}
+                text={story.text}
+                avanzarstory={avanzarstory}
+                columnnumber={columnnumber}
+                rootstory={story.rootstory}
+                addnewstory={botonagregar}
+                deleteStory={deleteStory}
+              />
+            );
+        })}
       </DivColumnBoard>
     </DivContainerColumnBoard>
   );
@@ -44,8 +56,9 @@ const DivContainerColumnBoard = styled.div`
   align-items: center;
   flex-direction: column;
   width: 25%;
-  padding: 10px;
+  /* padding: 10px; */
   height: 100%;
+  /* gap: 10px;  */
   > h4 {
     height: 1em;
     font-size: 1.3em;
@@ -57,7 +70,7 @@ const DivColumnBoard = styled.div`
   min-height: 500px;
   height: Calc(100% - 1.3em - 5px);
   width: 100%;
-  padding: 5px;
+  padding: 10px; 
   border-radius: 10px;
   background-color: ${({ theme }) => theme.bgc2};
   border: 1px solid ${({ theme }) => theme.colorborder};
