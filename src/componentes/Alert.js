@@ -1,12 +1,13 @@
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 function Alert({ children, titleBtn, onClick }) {
-  return (
+  return createPortal((
     <DivModalAlert>
       {children}
       <button onClick={() => onClick()}>{titleBtn}</button>
-    </DivModalAlert>
-  );
+    </DivModalAlert>), 
+    document.getElementById('alert')  );
 }
 
 export default Alert;

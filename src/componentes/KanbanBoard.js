@@ -91,6 +91,7 @@ function KanbanBoard() {
   };
 
   const deleteStory = () => {
+    
     const storyDel = stories.find((story) => story.id === storyId);
     const updatedStories = stories.filter((story) => story.id !== storyId);
     setStoryDeleted(storyDel);

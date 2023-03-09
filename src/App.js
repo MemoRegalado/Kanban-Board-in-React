@@ -6,19 +6,12 @@ import BtnTheme from "./componentes/BtnTheme";
 import { useState } from "react";
 import useLocalStorage from "./hooks/useLocalStorage";
 
+
+//esto va en el package.json  
+// "homepage": "https://memoregalado.github.io/Kanban-Board-in-React",
+
+
 function App() {
-  // const localStorageTheme = localStorage.getItem('theme');
-  
-  // if (!localStorageTheme){
-  //   localStorage.setItem('theme','light');
-  //   localStorageTheme = 'light'
-  // } 
-
-  // const saveTheme = (theme) => {
-  //   localStorage.setItem('theme',theme)
-  //   setTheme(theme)
-  // }
-
   const [theme, setTheme] = useLocalStorage('theme_V1','light');
   
   return (

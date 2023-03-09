@@ -1,6 +1,7 @@
 import Button from "./Button.js";
 import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
+import { createPortal } from "react-dom";
 
 function Modal({
   children,
@@ -11,7 +12,7 @@ function Modal({
   clickBtn2 = "",
   clickBtnClose = "",
 }) {
-  return (
+  return createPortal ((
     <DivOverlay id="divOverlay">
       <DivModal id="divModal">
         <DivHeader id="divHeader">
@@ -26,7 +27,8 @@ function Modal({
           <Button click={clickBtn2}>{tituloBtn2}</Button>
         </DivFooter>
       </DivModal>
-    </DivOverlay>
+    </DivOverlay>),
+    document.getElementById('modal')
   );
 }
 
@@ -54,7 +56,7 @@ const DivModal = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 10px;
   background-color: ${({ theme }) => theme.bgc1};
-  border: 2px solid ${({ theme }) => theme.colorborder};
+  border: 2px solid ${({ theme }) => theme.colorBorderModal};
 `;
 
 const DivHeader = styled.div`

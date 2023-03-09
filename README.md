@@ -1,4 +1,3 @@
-
 This is my initial project for a Kanban Board.  
 This project has as its only purpose to practice my React skills.  
 I want to ground some of the basic concepts and this first project can help with that.  
@@ -14,10 +13,13 @@ I'll add the 'drag and drop' funcionality, definitely.
 ~~I'm thinking about if I should put an 'undone' message after the delete, I'm not sure how that should be programmed, but definitely worth looking into.~~  
 ~~I'll add a confirm message before deleting.~~  
 
+# 2023/030/09
+Added some React Portals to understand how they work. It's a great functionality!  
+
 # 2023/02/22
-Added Local Storage.
-Right now, the mode chosen and the stories which you have created remain in the local storage of your browser.
-So, the next time you return to the page, the mode and the stories persist!
+Added Local Storage.  
+Right now, the mode chosen and the stories which you have created remain in the local storage of your browser.  
+So, the next time you return to the page, the mode and the stories persist!  
 
 # 2023/01/26  
 The project now has dark/light mode!!  
@@ -37,11 +39,11 @@ Added a confirm message before deleting.
 # 2022/12/27
 Added a button to delete the stories.  
 Added some tool tip text.  
-Added a counter for each  Kanban Column.
+Added a counter for each  Kanban Column.  
 
 # 2022/12/27
 I added a modal window to create the new stories.  
-The Modal Component is very flexible because we can configure every button action.
+The Modal Component is very flexible because we can configure every button action.  
 
 # 2022/11/23
 I added a button to add stories.  

@@ -10,14 +10,8 @@ function ColumnBoard({
   deleteStory,
 }) {
 
-  const total = stories.reduce((accumulator, el) => {
-    if (columnnumber == el.nocolumn) {
-      return accumulator + 1;
-    } else {
-      return accumulator;
-    }
-  }, 0);
-
+  const total = stories.filter(story => columnnumber == story.nocolumn).length  
+  
   return (
     <DivContainerColumnBoard>
       <h4>{nombrecolumna}</h4>
