@@ -1,7 +1,7 @@
 import Button from "./Button.js";
 import styled from "styled-components";
-import { CgClose } from "react-icons/cg";
 import { createPortal } from "react-dom";
+import { Header } from "./Header.js";
 
 function Modal({
   children,
@@ -12,23 +12,18 @@ function Modal({
   clickBtn2 = "",
   clickBtnClose = "",
 }) {
-  return createPortal ((
+  return createPortal(
     <DivOverlay id="divOverlay">
       <DivModal id="divModal">
-        <DivHeader id="divHeader">
-          <h2>{titulo}</h2>
-          <BtnClose onClick={clickBtnClose}>
-            <CgClose />
-          </BtnClose>
-        </DivHeader>
+        <Header titulo={titulo} clickBtnClose={clickBtnClose}></Header>
         <DivChildren id="divChildren">{children}</DivChildren>
         <DivFooter id="divFooter">
           <Button click={clickBtn1}>{tituloBtn1}</Button>
           <Button click={clickBtn2}>{tituloBtn2}</Button>
         </DivFooter>
       </DivModal>
-    </DivOverlay>),
-    document.getElementById('modal')
+    </DivOverlay>,
+    document.getElementById("modal")
   );
 }
 
@@ -59,12 +54,6 @@ const DivModal = styled.div`
   border: 2px solid ${({ theme }) => theme.colorBorderModal};
 `;
 
-const DivHeader = styled.div`
-  padding: 0px 0px 10px 0px;
-  border-bottom: 1px solid ${({ theme }) => theme.colorborder};
-  display: flex;
-  justify-content: center;
-`;
 
 const DivChildren = styled.div`
   padding: 10px;
